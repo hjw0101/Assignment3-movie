@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>영화 장르</title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        // 자바스크립트 코드
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            // Get user inputs
+            var romance = parseFloat(document.getElementById('romance').value);
+            var horror = parseFloat(document.getElementById('horror').value);
+            var comedy = parseFloat(document.getElementById('comedy').value);
+            var action = parseFloat(document.getElementById('action').value);
+            var fantasy = parseFloat(document.getElementById('fantasy').value);
+          
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Genre');
+            data.addColumn('number', 'Percent');
+            data.addRows([
+              ['Romance', romance],
+              ['Horror', horror],
+              ['Comedy', comedy],
+              ['Action', action],
+              ['Fantasy', fantasy]
+            ]);
+          
+            // Set chart options
+            var options = {'title':'Favorite Movie Genres',
+                           'width':900,
+                           'height':500};
+          
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+          
+      </script>
+</head>
+<body>
+    <h1>영화 장르</h1>
+    <form method="POST" action="insert_data.php">
+        <label for="romance">Romance:</label>
+        <input type="text" name="romance" id="romance" min="0" max="100" required><br>
+        
+        <label for="horror">Horror:</label>
+        <input type="text" name="horror" id="horror" min="0" max="100" required><br>
+        
+        <label for="comedy">Comedy:</label>
+        <input type="text" name="comedy" id="comedy" min="0" max="100" required><br>
+        
+        <label for="action">Action:</label>
+        <input type="text" name="action" id="action" min="0" max="100" required><br>
+        
+        <label for="fantasy">Fantasy:</label>
+        <input type="text" name="fantasy" id="fantasy" min="0" max="100" required><br>
+        
+        <button type="button" onclick="drawChart()">Visualize</button>
+    </form>
+    <div id="chart_div"></div>
+</body
